@@ -1,14 +1,11 @@
 #!/usr/bin/python3
-"""Defines the classes Node and SinglyLinkedList"""
+
+"""Define classes for a singly-linked list."""
 
 
 class Node:
-    """
-    Class that defines properties Node.
+    """Represent a node in a singly-linked list."""
 
-    Attributes:
-        data: data field of node.
-    """
     def __init__(self, data, next_node=None):
         """Initialize a new Node."""
         self.data = data
