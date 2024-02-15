@@ -1,4 +1,3 @@
-guillaume@ubuntu:~/0x08$ cat 2-main.py
 #!/usr/bin/python3
 Rectangle = __import__('2-rectangle').Rectangle
 
@@ -10,4 +9,3 @@ print("--")
 my_rectangle.width = 10
 my_rectangle.height = 3
 print("Area: {} - Perimeter: {}".format(my_rectangle.area(), my_rectangle.perimeter()))
-
