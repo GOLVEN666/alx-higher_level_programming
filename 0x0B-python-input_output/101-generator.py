@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-import sys
 import random
+import sys
 from time import sleep
 import datetime
 
@@ -13,3 +13,4 @@ for i in range(10000):
         random.randint(1, 1024)
     ))
     sys.stdout.flush()
+
