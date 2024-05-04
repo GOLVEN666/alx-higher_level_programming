@@ -1,17 +1,30 @@
 #!/usr/bin/python3
-"""  script that lists all states from the database hbtn_0e_0_usa """
-import MySQLdb
-import sys
+"""
+return matching states; safe from MySQL injections
+# http://bobby-tables.com/python
+parameters given to script: username, password, database, state to match
+"""
 
+import MySQLdb
+from sys import argv
 
 if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost", user=sys.argv[1],
-                         passwd=sys.argv[2], db=sys.argv[3], port=3306)
-    czr = db.cursor()
-    match = sys.argv[4]
-    czr.execute("SELECT * FROM states WHERE name LIKE %s", (match, ))
-    rows = czr.fetchall()
-    for row in rows:
-        print(row)
-    czr.close()
+
+    # connect to database
+    db = MySQLdb.connect(host="localhost",
+                         port=3306,
+                         user=argv[1],
+                         passwd=argv[2],
+                         db=argv[3])
+
+    # create cursor to exec queries using SQL; match arg given
+    cursor = db.cursor()
+    sql_cmd = """SELECT * \
+                 FROM states \
+                 WHERE name=%s ORDER BY id ASC"""
+    cursor.execute(sql_cmd, (argv[4],))
+
+    for state in cursor.fetchall():
+        print(state)
+    cursor.close()
     db.close()

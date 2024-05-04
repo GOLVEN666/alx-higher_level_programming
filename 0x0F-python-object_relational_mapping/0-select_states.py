@@ -1,16 +1,40 @@
 #!/usr/bin/python3
-"""  lists all states from the database hbtn_0e_0_usa """
+"""script that lists all states from the database hbtn_0e_0_usa"""
 import MySQLdb
-import sys
+from sys import argv
 
 
-if __name__ == "__main__":
-    db = MySQLdb.connect(host="localhost", user=sys.argv[1],
-                         passwd=sys.argv[2], db=sys.argv[3], port=3306)
-    cur = db.cursor()
-    cur.execute("SELECT * FROM states")
-    rows = cur.fetchall()
-    for row in rows:
-        print(row)
-    cur.close()
-    db.close()
+def get_dbase():
+    """Takes arguments argv and list from database
+    Arguments:
+        argv[1]: mysql username
+        argv[2]: mysql password
+        argv[3]: database name
+    """
+    dbase = MySQLdb.connect(host="localhost",
+                            port=3306,
+                            user=argv[1],
+                            passwd=argv[2],
+                            db=argv[3],
+                            charset="utf8"
+                            )
+
+    # Getting a cursor
+    dbase_cur = dbase.cursor()
+
+    # Esecuting dbase queries
+    dbase_cur.execute("SELECT * FROM states ORDER BY id")
+
+    # Fetches all the rows of a query result
+    query_rows = dbase_cur.fetchall()
+
+    # Print result one by one
+    for rows in query_rows:
+        print(rows)
+
+    dbase_cur.close()
+    dbase.close()
+
+
+if __name__ == '__main__':
+    get_dbase()
